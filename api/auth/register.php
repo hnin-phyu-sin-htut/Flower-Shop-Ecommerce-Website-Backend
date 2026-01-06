@@ -44,7 +44,7 @@ try {
     ]);
 
     if ($check->rowCount() > 0) {
-        jsonResponse(["message" => "User already exists"], 401);
+        jsonResponse(["message" => "User already exists!"], 401);
     }
 
     // Insert user

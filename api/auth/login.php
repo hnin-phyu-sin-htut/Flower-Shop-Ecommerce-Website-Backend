@@ -48,7 +48,7 @@ try {
 
 } catch (PDOException $e) {
     jsonResponse([
-        "message" => "Login failed",
+        "message" => "Login failed!",
         "error" => $e->getMessage()
     ], 500);
 }
