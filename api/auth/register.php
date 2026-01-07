@@ -17,7 +17,6 @@ require_once "../../utils/response.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Validate input
 if (
     empty($data['username']) ||
     empty($data['password']) ||
@@ -34,7 +33,6 @@ $role = $data['userType'] === "ADMIN"
 try {
     $db = (new Database())->connect();
 
-    // Check existing user
     $check = $db->prepare(
         "SELECT id FROM users WHERE username = :username OR email = :email"
     );
@@ -47,7 +45,6 @@ try {
         jsonResponse(["message" => "User already exists!"], 401);
     }
 
-    // Insert user
     $stmt = $db->prepare("
         INSERT INTO users (username, email, password, phone, address, role)
         VALUES (:username, :email, :password, :phone, :address, :role)
