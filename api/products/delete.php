@@ -8,4 +8,4 @@ $db = (new Database())->connect();
 $stmt = $db->prepare("DELETE FROM products WHERE id=?");
 $stmt->execute([$id]);
 
-echo json_encode(["message" => "Product deleted."]);
+echo json_encode(["message" => "Product deleted!"]);

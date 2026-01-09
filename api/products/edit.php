@@ -13,19 +13,13 @@ $db = (new Database())->connect();
 
 $name = $_POST['name'] ?? '';
 $price = $_POST['price'] ?? 0;
-$quantity = $_POST['quantity'] ?? 0;
 $categoryId = $_POST['categoryId'] ?? null;
 
 $imagePath = null;
 
 if (!empty($_FILES['image']['name'])) {
-    $uploadDir = __DIR__ . "/../../uploads/products/";
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    $fileName = time() . "_" . basename($_FILES['image']['name']);
+    $uploadDir = "/../../uploads/products/";
+    $fileName = basename($_FILES['image']['name']);
     $target = $uploadDir . $fileName;
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
@@ -35,16 +29,16 @@ if (!empty($_FILES['image']['name'])) {
 
 if ($imagePath) {
     $sql = "UPDATE products 
-            SET name=?, price=?, quantity=?, category_id=?, image=?
+            SET name=?, price=?, category_id=?, image=?
             WHERE id=?";
     $stmt = $db->prepare($sql);
-    $stmt->execute([$name, $price, $quantity, $categoryId, $imagePath, $id]);
+    $stmt->execute([$name, $price, $categoryId, $imagePath, $id]);
 } else {
     $sql = "UPDATE products 
-            SET name=?, price=?, quantity=?, category_id=?
+            SET name=?, price=?, category_id=?
             WHERE id=?";
     $stmt = $db->prepare($sql);
-    $stmt->execute([$name, $price, $quantity, $categoryId, $id]);
+    $stmt->execute([$name, $price, $categoryId, $id]);
 }
 
 echo json_encode(["message" => "Product updated successfully."]);

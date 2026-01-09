@@ -38,7 +38,7 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user || !password_verify($data['password'], $user['password'])) {
-        jsonResponse(["message" => "Invalid username or password."], 401);
+        jsonResponse(["message" => "Invalid username or password!"], 401);
     }
 
     jsonResponse([

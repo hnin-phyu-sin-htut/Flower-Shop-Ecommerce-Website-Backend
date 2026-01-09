@@ -9,7 +9,6 @@ SELECT
     p.id,
     p.name,
     p.price,
-    p.quantity,
     p.image,
     c.id AS categoryId,
     c.name AS categoryName

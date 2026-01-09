@@ -60,7 +60,7 @@ try {
     ]);
 
     if ($success) {
-        jsonResponse(["message" => "Registered Successfully."], 201);
+        jsonResponse(["message" => "Registered Successfully!"], 201);
     } else {
         jsonResponse(["message" => "Failed to register!"], 500);
     }

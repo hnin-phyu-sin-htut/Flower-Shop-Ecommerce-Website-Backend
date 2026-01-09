@@ -26,4 +26,4 @@ if (!$stmt->execute(["name" => $data['categoryName']])) {
     exit;
 }
 
-echo json_encode(["message" => "Category created successfully."]);
+echo json_encode(["message" => "Category created successfully!"]);
