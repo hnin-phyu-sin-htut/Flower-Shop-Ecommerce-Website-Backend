@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2026 at 05:34 PM
+-- Generation Time: Jan 10, 2026 at 10:17 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -61,7 +61,7 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `order_number` varchar(50) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  `order_date` timestamp NULL DEFAULT current_timestamp(),
+  `order_date` datetime DEFAULT current_timestamp(),
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -70,8 +70,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `order_number`, `total_price`, `order_date`, `user_id`) VALUES
-(1, 'ORD-1767975934', 116000.00, '2026-01-09 16:28:00', 1),
-(2, 'ORD-1767976093', 65000.00, '2026-01-09 16:28:13', 1);
+(1, 'ORD-1768079415', 40000.00, '2026-01-11 03:40:15', 7),
+(2, 'ORD-1768079548', 70000.00, '2026-01-11 03:42:28', 7),
+(3, 'ORD-1768079706', 40000.00, '2026-01-11 03:45:06', 7),
+(4, 'ORD-1768079750', 118000.00, '2026-01-11 03:45:50', 9);
 
 -- --------------------------------------------------------
 
@@ -92,10 +94,11 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `quantity`, `sub_total`, `product_id`, `order_id`) VALUES
-(1, 2, 56000.00, 12, 1),
-(2, 2, 60000.00, 11, 1),
-(3, 1, 40000.00, 5, 2),
-(4, 1, 25000.00, 6, 2);
+(1, 2, 40000.00, 21, 1),
+(2, 2, 70000.00, 16, 2),
+(3, 2, 40000.00, 21, 3),
+(4, 2, 90000.00, 3, 4),
+(5, 2, 90000.00, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -167,7 +170,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `phone`, `address`, 
 (5, 'Min Thant', 'minthant@gmail.com', '$2y$10$QkEzGStMIHRn9dEaS9h2TuJ3m5WK70I2o9xOlRwkAuFu4gHZUriMS', '09-250123011', '', 'ROLE_ADMIN', '2026-01-09 14:22:36'),
 (6, 'A Win', 'winwin@gmail.com', '$2y$10$G0oMtj5gV/pksGU/vFkyLO60CCY/oo4CbssqZ5ovPpqeBedfRTol.', '09-250123030', 'No.5, Bayint Naung Road, Mayangone, Yangon', 'ROLE_ADMIN', '2026-01-09 14:24:01'),
 (7, 'Mary Shelly', 'maryshelly@gmail.com', '$2y$10$MQ27zn4pwza75tY7NNYl2ub.iHxwkLs5y5m9klWNnqvifU8yImury', '09-123456789', 'No.40, University Avenue, Bahan, Yangon', 'ROLE_CUSTOMER', '2026-01-09 14:25:36'),
-(8, 'Snow', 'snow@gmail.com', '$2y$10$ZERiRzx/bF4beeIFsDNmk.drp.ql1Cww14dJ2eC8b6xwR9FkzicR2', '09987654321', '', 'ROLE_ADMIN', '2026-01-09 14:26:25');
+(8, 'Snow', 'snow@gmail.com', '$2y$10$ZERiRzx/bF4beeIFsDNmk.drp.ql1Cww14dJ2eC8b6xwR9FkzicR2', '09987654321', '', 'ROLE_ADMIN', '2026-01-09 14:26:25'),
+(9, 'Jennie Kim', 'jenniekim@gmail.com', '$2y$10$7ZoKdiDOy/qlxudHj77ArufzGxZ6Pk0ezXWXx0IW8kba8ic/38.lW', '09978675868', 'Yangon', 'ROLE_CUSTOMER', '2026-01-10 19:15:39');
 
 --
 -- Indexes for dumped tables
@@ -184,7 +188,6 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `order_number` (`order_number`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -224,13 +227,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -242,7 +245,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

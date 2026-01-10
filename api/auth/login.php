@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Content-Type: application/json");
@@ -25,23 +25,21 @@ try {
     $db = (new Database())->connect();
 
     $stmt = $db->prepare("
-        SELECT username, email, password, role
+        SELECT id, username, email, password, role
         FROM users
         WHERE username = :value OR email = :value
         LIMIT 1
     ");
-
-    $stmt->execute([
-        ":value" => $data['username']
-    ]);
-
+    $stmt->execute([":value" => $data['username']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user || !password_verify($data['password'], $user['password'])) {
         jsonResponse(["message" => "Invalid username or password!"], 401);
     }
 
+    // Return user info for frontend
     jsonResponse([
+        "id" => (int)$user['id'],
         "username" => $user['username'],
         "roleName" => $user['role']
     ]);
@@ -52,3 +50,5 @@ try {
         "error" => $e->getMessage()
     ], 500);
 }
+
+?>
