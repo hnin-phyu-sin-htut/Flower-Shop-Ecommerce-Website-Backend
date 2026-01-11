@@ -18,7 +18,7 @@ $categoryId = $_POST['categoryId'] ?? null;
 $imagePath = null;
 
 if (!empty($_FILES['image']['name'])) {
-    $uploadDir = "/../../uploads/products/";
+    $uploadDir = __DIR__ . "/../../uploads/products/";
     $fileName = basename($_FILES['image']['name']);
     $target = $uploadDir . $fileName;
 
@@ -29,16 +29,16 @@ if (!empty($_FILES['image']['name'])) {
 
 if ($imagePath) {
     $sql = "UPDATE products 
-            SET name=?, price=?, category_id=?, image=?
+            SET name=?, price=?, image=?, category_id=?
             WHERE id=?";
     $stmt = $db->prepare($sql);
-    $stmt->execute([$name, $price, $categoryId, $imagePath, $id]);
+    $stmt->execute([$name, $price, $imagePath, $categoryId, $id]);
 } else {
     $sql = "UPDATE products 
-            SET name=?, price=?, category_id=?
+            SET name=?, price=?, image=?, category_id=?
             WHERE id=?";
     $stmt = $db->prepare($sql);
-    $stmt->execute([$name, $price, $categoryId, $id]);
+    $stmt->execute([$name, $price, $imagePath, $categoryId, $id]);
 }
 
 echo json_encode(["message" => "Product updated successfully."]);
